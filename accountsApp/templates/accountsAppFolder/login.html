@@ -1,0 +1,16 @@
+{% extends 'base_layouts.html' %}
+
+{% block content %}
+<h1>Login</h1>
+<!-- <form class= "site-form" action="/accounts/login/" method="POST"> -->
+<form class= "site-form" action="{% url 'accounts:login' %}" method="POST">
+    {% csrf_token %}
+    {{anyname}}
+
+    {% if request.GET.next %} <!-- check the get next v predicted  in url -->
+    <input type="hidden" name="next" value="{{request.GET.next}}">
+    {% endif %}
+
+    <input type="submit" value="Login">
+</form>
+{% endblock  %}  

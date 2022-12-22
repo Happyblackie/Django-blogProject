@@ -1,0 +1,45 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+   <!--  <link rel="stylesheet" href="/static/style.css"> -->
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header class="wrapper">
+        <!-- {% url 'home' %} ->home is the name of th url in urls.py homepath(found in rootfolder) -->
+        <h2><a href="{% url 'home' %}"><img src="{% static 'logo.png' %}" alt=""></a></h2>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li>
+                        <form class="logout-link" action="{% url 'accounts:logout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type = "submit">Logout</button>
+                        </form>
+                    </li>
+                    <li><a class="highlight" href="{% url 'articles:create' %}">New Article</a></li>
+                    <!-- Here is code to display current logging name. -->
+                    <p class="logged-user-sms" >Welcome, {{ user.username }}.Thanks for logging in.</p>
+                 
+
+                {% else %}
+                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                    <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        
+    </header>
+
+    
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
